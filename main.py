@@ -4,6 +4,8 @@ import datetime
 from datetime import timedelta
 import pandas as pd
 
+# hi iggy can u see this?
+
 with open('token.txt','r') as file:
     API = file.read()
 
