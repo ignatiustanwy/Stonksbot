@@ -41,15 +41,18 @@ def help(update, context):
 
 
 def stock_price(update, context):
-    input = str.upper(context.args[0])
+    try:
+        input = str.upper(context.args[0])
+    except IndexError:
+        update.message.reply_text("Please key in a ticker/name at the end of the command.\n E.g. \n /stock_price AAPL")
     try:
         ticker = reader.DataReader(input, 'yahoo')
         price = ticker.iloc[-1]['Close']
-    except KeyError:
+    except:
         ticker = str.lower(input)
         try:
             price = coingecko.get_price(ids=input, vs_currencies='usd')[ticker]['usd']
-        except KeyError:
+        except:
             price = 'No such ticker/name'
     if price == 'No such ticker/name':
         update.message.reply_text(price)
